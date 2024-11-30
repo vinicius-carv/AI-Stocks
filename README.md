@@ -113,10 +113,9 @@ Dependencies may become outdated over time. Check the `build.gradle` and `packag
 Feel free to customize configurations and features to suit your needs.
 
 ## Author
-
-    - Vinicius Carvalho
-        - [Email](mailto:valves8956@gmail.com)
-        - [Linkedin](https://www.linkedin.com/in/vinicius-carv/)
+- Vinicius Carvalho
+    - [Email](mailto:valves8956@gmail.com)
+    - [Linkedin](https://www.linkedin.com/in/vinicius-carv/)
 
 ## Disclaimer
 This is a demo project meant for learning and experimentation purposes. The stock trading and AI functionalities are simulated and should not be used for real-world financial decisions.
