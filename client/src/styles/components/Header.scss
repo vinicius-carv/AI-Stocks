@@ -1,0 +1,36 @@
+@use '../variables' as *;
+
+.header {
+    background-color: white;
+    color: $primary-color;
+    font-family: poppins;
+  }
+  
+  .header .logo h1 {
+    margin: 0;
+  }
+  
+  .nav-list li a {
+    color: $primary-color;
+    text-decoration: none;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    border-radius:2px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor:pointer;
+  }
+  
+  .nav-list li a:hover{
+    text-decoration: none;
+    color: rgba(0,0,0,0.6);
+    transform: scale(110%);
+    background-color: rgba(50,50,50,0.1);
+  }

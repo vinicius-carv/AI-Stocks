@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  ai-stocks-db:
+    image: postgres:15
+    container_name: ai-stocks-db
+    environment:
+      POSTGRES_USER: 84kA9zf23er4
+      POSTGRES_PASSWORD: P@ssw0rd#Yz!7x3&
+      POSTGRES_DB: stocks_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  ai-stocks-server:
+    build:
+      context: /server/ai.stocks
+      dockerfile: Dockerfile
+    container_name: ai-stocks-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ai-stocks-db:5432/stocks_db
+      SPRING_DATASOURCE_USERNAME: 84kA9zf23er4
+      SPRING_DATASOURCE_PASSWORD: P@ssw0rd#Yz!7x3&
+      SPRING_PROFILES_ACTIVE: dev
+    volumes:
+      - ./server/ai.stocks/target:/app/target
+      - ./server/ai.stocks/src:/app/src
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ai-stocks-db
+
+  ai-stocks-client:
+    build:
+      context: /client
+      dockerfile: Dockerfile
+    container_name: ai-stocks-client
+    ports:
+      - "3000:3000"
+      - "5173:5173"
+    command: ["sh", "-c", "npm run dev & while true; do inotifywait -e modify -r /app/src && npm run build && npm run dev; done"]
+    environment:
+      VITE_API_URL: http://localhost:8080
+    restart: always
+
+volumes:
+  postgres_data:
