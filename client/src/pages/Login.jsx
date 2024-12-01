@@ -1,48 +1,61 @@
-import React from 'react';
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import usePageTitle from "../hooks/usePageTitle.js";
 
 const Login = () => {
+  usePageTitle("Login");
   return (
     <div className="Login">
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content">
-          <h1>AI-Powered Stock Analysis</h1>
-          <p>Revolutionize your investment strategy with AI-driven insights. Stay ahead of the market and make smarter decisions effortlessly.</p>
-          <button className="cta-button">Get Started</button>
-        </div>
-        <div className="hero-image">
-          <img src="/assets/images/hero-image.png" alt="AI Stocks Hero" />
-        </div>
-      </section>
+      <div className="container d-flex justify-content-center">
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.email) {
+              errors.email = "Required";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
+            }
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(() => {
+              alert(JSON.stringify(values, null, 2));
+              setSubmitting(false);
+            }, 400);
+          }}
+        >
+          {({ handleSubmit, isSubmitting }) => (
+            <Form className="login-form form-control d-flex flex-column" onSubmit={handleSubmit}>
+              <label htmlFor="email">Email:</label>
+              <Field
+                type="email"
+                name="email"
+                id="email"
+                className="form-text form-input"
+              />
+              <ErrorMessage name="email" component="span" className="text-danger" />
+              <label htmlFor="password">Password:</label>
+              <Field
+                type="password"
+                name="password"
+                id="password"
+                className="form-text form-input"
+              />
+              <ErrorMessage name="password" component="span" className="text-danger" />
+              <a className="btn btn-outline-primary mt-4" >
+                Register
+              </a>
 
-      {/* Features Section */}
-      <section className="features">
-        <h2>Why Choose AI Stocks?</h2>
-        <div className="features-grid">
-          <div className="feature">
-            <img src="/assets/icons/insight-icon.png" alt="Market Insights" />
-            <h3>Real-Time Insights</h3>
-            <p>Get up-to-the-minute stock market analysis, trends, and forecasts.</p>
-          </div>
-          <div className="feature">
-            <img src="/assets/icons/ai-icon.png" alt="AI-Powered" />
-            <h3>AI-Powered Analytics</h3>
-            <p>Leverage cutting-edge AI to analyze stocks and predict performance.</p>
-          </div>
-          <div className="feature">
-            <img src="/assets/icons/customize-icon.png" alt="Customizable" />
-            <h3>Customizable Alerts</h3>
-            <p>Receive personalized alerts tailored to your investment strategy.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Call-To-Action Section */}
-      <section className="cta">
-        <h2>Take Control of Your Investments</h2>
-        <p>Sign up today to gain access to powerful tools and insights that can transform the way you invest.</p>
-        <button className="cta-button">Join Now</button>
-      </section>
+              <button className="btn btn-primary mt-4" type="submit" disabled={isSubmitting}>
+                Submit
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };

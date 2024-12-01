@@ -1,0 +1,10 @@
+@use './variables' as *;
+
+
+.Login {
+    .container {
+        .login-form {
+            width: fit-content;
+        }
+    }
+}
